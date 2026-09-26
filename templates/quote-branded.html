@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+Branded quote document. Fill in the {{ }} placeholders — AGENCY_*,
+HOST_AGENCY_* and the brand colors from branding.md, trip details from the
+client's research.md — then open in a browser and use Print > Save as PDF
+to produce the client-facing document.
+
+Logo paths are relative to clients/<client-name>/ (where the filled-in
+quote is saved). Inline all images as base64 before sending — see
+CLAUDE.md step 6.
+
+Ship/stateroom fields (Ship column, ship-photos section) are for cruise
+quotes. For a non-cruise trip, leave the Ship column blank/"N/A" and delete
+the .ship-photos block, or swap its two images for a resort exterior + room
+photo instead.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Travel Quote — {{CLIENT_NAME}}</title>
+<style>
+  :root {
+    --brand-primary: #1B2A4A; /* agency primary color — from branding.md */
+    --brand-accent:  #C9A227; /* agency accent color — from branding.md */
+    --host-accent:    #3D7C8C; /* host agency color, affiliate mark only — from branding.md */
+    --text: #1c1c1c;
+    --muted: #666;
+    --border: #e2e2e2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--text);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 32px;
+    line-height: 1.5;
+  }
+  header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--brand-primary);
+    padding-bottom: 16px;
+    margin-bottom: 12px;
+  }
+  header .primary-logo img { height: 78px; display: block; }
+  header .contact-block {
+    text-align: right;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .affiliate-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--host-accent);
+    margin-top: 12px;
+  }
+  .affiliate-line img { height: 64px; }
+  h1 {
+    font-size: 24px;
+    color: var(--brand-primary);
+    margin-bottom: 4px;
+  }
+  .subtitle { color: var(--muted); margin-bottom: 24px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 28px;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 14px;
+  }
+  th {
+    background: var(--brand-primary);
+    color: #fff;
+  }
+  .recommended {
+    background: #fff8ec;
+    border-left: 3px solid var(--brand-accent);
+  }
+  .recommendation-box {
+    background: #f7f7f7;
+    border-left: 4px solid var(--brand-accent);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+  .ship-photos {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .ship-photos figure {
+    flex: 1;
+    margin: 0;
+  }
+  .ship-photos img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    object-position: center;
+    background: #eef2f5;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+  .ship-photos figcaption {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 6px;
+  }
+  .itinerary th, .itinerary td { font-size: 13px; }
+  .itinerary td.stop { font-weight: bold; }
+  footer {
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    padding-top: 16px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  @media print {
+    body { padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="primary-logo">
+    <img src="../../assets/{{AGENCY_LOGO_FILE}}" alt="{{AGENCY_NAME}}">
+  </div>
+  <div class="contact-block">
+    {{AGENCY_NAME}}<br>
+    {{AGENCY_PHONE}}<br>
+    {{AGENCY_EMAIL}}<br>
+    <a href="{{AGENCY_WEBSITE_URL}}" style="color: inherit;">{{AGENCY_WEBSITE}}</a>
+  </div>
+</header>
+
+<h1>Travel Quote for {{CLIENT_NAME}}</h1>
+<div class="subtitle">{{DESTINATION}} &middot; {{TRAVEL_DATES}} &middot; {{PARTY_SIZE}}</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Ship</th>
+      <th>Dates</th>
+      <th>Cabin / Room</th>
+      <th>Inclusions</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="recommended">
+      <td>{{OPTION_1_NAME}}</td>
+      <td>{{OPTION_1_SHIP}}</td>
+      <td>{{OPTION_1_DATES}}</td>
+      <td>{{OPTION_1_ROOM}}</td>
+      <td>{{OPTION_1_INCLUSIONS}}</td>
+      <td>{{OPTION_1_PRICE}}</td>
+    </tr>
+    <tr>
+      <td>{{OPTION_2_NAME}}</td>
+      <td>{{OPTION_2_SHIP}}</td>
+      <td>{{OPTION_2_DATES}}</td>
+      <td>{{OPTION_2_ROOM}}</td>
+      <td>{{OPTION_2_INCLUSIONS}}</td>
+      <td>{{OPTION_2_PRICE}}</td>
+    </tr>
+    <tr>
+      <td>{{OPTION_3_NAME}}</td>
+      <td>{{OPTION_3_SHIP}}</td>
+      <td>{{OPTION_3_DATES}}</td>
+      <td>{{OPTION_3_ROOM}}</td>
+      <td>{{OPTION_3_INCLUSIONS}}</td>
+      <td>{{OPTION_3_PRICE}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="recommendation-box">
+  <strong>My recommendation:</strong> {{RECOMMENDATION}}
+</div>
+
+<div class="ship-photos">
+  <figure>
+    <img src="{{SHIP_IMAGE}}" alt="{{RECOMMENDED_SHIP_NAME}}">
+    <figcaption>{{RECOMMENDED_SHIP_NAME}}</figcaption>
+  </figure>
+  <figure>
+    <img src="{{STATEROOM_IMAGE}}" alt="{{RECOMMENDED_STATEROOM_TYPE}}">
+    <figcaption>{{RECOMMENDED_STATEROOM_TYPE}}</figcaption>
+  </figure>
+</div>
+
+<!-- Cruise quotes only: day-by-day port stops for the recommended sailing,
+     pulled from the portal's "Itinerary Details" popup. Delete this whole
+     block for a non-cruise quote. -->
+<h3 style="color:var(--brand-primary);font-size:16px;margin-bottom:8px;">Where You'll Go — {{RECOMMENDED_SHIP_NAME}} Itinerary</h3>
+<table class="itinerary">
+  <thead>
+    <tr><th>Day</th><th>Port</th><th>Arrives</th><th>Departs</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>{{ITIN_DAY_1}}</td><td class="stop">{{ITIN_PORT_1}}</td><td>{{ITIN_ARRIVE_1}}</td><td>{{ITIN_DEPART_1}}</td></tr>
+    <tr><td>{{ITIN_DAY_2}}</td><td class="stop">{{ITIN_PORT_2}}</td><td>{{ITIN_ARRIVE_2}}</td><td>{{ITIN_DEPART_2}}</td></tr>
+    <tr><td>{{ITIN_DAY_3}}</td><td class="stop">{{ITIN_PORT_3}}</td><td>{{ITIN_ARRIVE_3}}</td><td>{{ITIN_DEPART_3}}</td></tr>
+    <!-- add/remove rows to match the actual sailing length -->
+  </tbody>
+</table>
+
+<p>Prices are subject to availability and can change until deposited. Let me
+know if you'd like to move forward with any of these or if you'd like me to
+keep looking.</p>
+
+<p>Warmly,<br>{{AGENT_NAME}}<br>{{AGENCY_NAME}}</p>
+
+<footer>
+  {{AGENCY_NAME}} &middot; {{AGENCY_PHONE}} &middot; {{AGENCY_EMAIL}}<br>
+  {{REQUIRED_DISCLAIMER_TEXT}}
+  <div class="affiliate-line">
+    <img src="../../assets/{{HOST_AGENCY_LOGO_FILE}}" alt="{{HOST_AGENCY_NAME}}">
+    <span>{{AGENCY_NAME}} is an affiliate of {{HOST_AGENCY_NAME}}</span>
+  </div>
+</footer>
+
+</body>
+</html>

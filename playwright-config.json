@@ -1,0 +1,1 @@
+{ "browser": { "launchOptions": { "args": ["--disable-blink-features="] } } }
