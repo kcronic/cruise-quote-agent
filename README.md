@@ -1,7 +1,7 @@
 # Travel Agent Cruise Quote Assistant
 
 A [Claude Code](https://claude.com/claude-code) project that works as a
-research assistant for a travel agent. Give it a client's trip request and
+research assistant for a travel agent. Give it a client's trip intake requests and
 it searches the cruise lines' travel-agent portals in a real browser, logs
 what it finds, compares the options (including promos and perks), and
 drafts a client-ready quote as both a paste-ready email and a branded
@@ -32,8 +32,7 @@ You need your own travel-agent login for each portal you want to use.
 - **Read-only.** It never books, pays or holds a cabin without you
   confirming that specific step.
 - **No bot-evasion.** If a portal shows a CAPTCHA or blocks automation, it
-  stops and hands control back to you. `playwright-config.json` also turns
-  off Playwright's default flag that hides automation from websites.
+  stops and hands control back to you. 
 - **You track the details.** After researching, it posts each sailing's
   exact day-by-day itinerary and the promo codes it found in the chat.
 
